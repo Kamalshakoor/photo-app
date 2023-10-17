@@ -28,6 +28,10 @@ gem 'jquery-rails'
 gem 'stripe'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+# gem 'coffee-rails', '~> 4.1.0'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

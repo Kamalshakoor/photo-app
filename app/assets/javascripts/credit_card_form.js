@@ -1,15 +1,20 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Function is being executed');
-    
-    var submitHandler = function(event) {
+document.addEventListener('DOMContentLoaded', function () {
+    // console.log('File is being executed');
+
+    var submitHandler = function (event) {
         var form = event.target;
         var submitButton = form.querySelector("input[type=submit]");
         submitButton.disabled = true;
 
         if (typeof Stripe !== 'undefined') {
-            Stripe.card.createToken(form, stripeResponseHandler);
+            Stripe
+                .card
+                .createToken(form, stripeResponseHandler);
         } else {
-            show_error("Failed to load credit card processing functionality. Please reload this page in your browser.");
+            show_error(
+                "Failed to load credit card processing functionality. Please reload this page i" +
+                "n your browser."
+            );
         }
 
         event.preventDefault();
@@ -17,11 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     var ccForms = document.querySelectorAll(".cc_form");
-    ccForms.forEach(function(form) {
+    ccForms.forEach(function (form) {
         form.addEventListener('submit', submitHandler);
     });
 
-    var stripeResponseHandler = function(status, response) {
+    var stripeResponseHandler = function (status, response) {
         var token;
         var form = document.querySelector('.cc_form');
 
@@ -39,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             form.appendChild(hiddenInput);
 
             var fieldsToRemove = ["number", "cvc", "exp-year", "exp-month", "label"];
-            fieldsToRemove.forEach(function(field) {
+            fieldsToRemove.forEach(function (field) {
                 var elements = document.querySelectorAll("[data-stripe=" + field + "]");
-                elements.forEach(function(element) {
+                elements.forEach(function (element) {
                     element.remove();
                 });
             });
@@ -50,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    var show_error = function(message) {
+    var show_error = function (message) {
         var flashMessages = document.getElementById("flash-messages");
         if (!flashMessages) {
             var container = document.querySelector('div.container.main div:first');
@@ -59,10 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
             container.insertBefore(flashMessages, container.firstChild);
         }
 
-        flashMessages.innerHTML = '<div class="alert alert-warning"><a class="close" data-bs-dismiss="alert">x</a><div id="flash_alert">' + message + '</div></div>';
-        setTimeout(function() {
+        flashMessages.innerHTML = '<div class="alert alert-warning"><a class="close" data-bs-dismiss="alert">x</a' +
+                '><div id="flash_alert">' + message + '</div></div>';
+        setTimeout(function () {
             flashMessages.style.display = 'none';
         }, 5000);
     };
 });
-
